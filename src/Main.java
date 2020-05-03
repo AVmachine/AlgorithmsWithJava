@@ -1,4 +1,7 @@
+import javax.swing.*;
 import java.lang.module.FindException;
+import java.util.Stack;
+import java.util.regex.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,7 +14,9 @@ public class Main {
         //recursion(5);
         //System.out.println(factorial(5))p;
 
-        recursiveQuicksort(arr);
+        //recursiveQuicksort(arr);
+
+        System.out.println(palindromeOrNot("Eva, Can I Stab Bats In A Cave?"));
 
     }
 
@@ -118,5 +123,39 @@ public class Main {
         }
         System.out.println();
     }
+
+    public static boolean palindromeOrNot(String phrase) //disregard caps and punctuation
+    {
+        Stack myStack = new Stack();
+
+        int length = phrase.length() / 2;
+
+        for (int x = length-1; x >= 0; x--) {
+            if (Character.isDigit(phrase.charAt(x)) || Character.isAlphabetic(phrase.charAt(x))) {
+                myStack.push(Character.toLowerCase(phrase.charAt(x)));
+            }
+        }
+
+        int y = phrase.length()-1;
+        int x = 0;
+        do
+        {
+            if(Character.isAlphabetic(phrase.charAt(y)) && myStack.lastElement().equals(Character.toLowerCase(phrase.charAt(y))))
+            {
+                myStack.pop();
+                x++;
+            }
+            y--;
+        }
+        while(y > length);
+
+        System.out.println(myStack);
+        if(myStack.isEmpty())
+        {
+            return true;
+        }
+        return false;
+    }
+
 
 }
